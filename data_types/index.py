@@ -1,0 +1,1 @@
+print("learn the data type")
