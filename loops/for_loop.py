@@ -120,12 +120,12 @@
 
 # check the string is palindrom or not 
 
-string ="racar"
-revstr=""
-for i in range(len(string)-1,-1,-1):
-    revstr+=string[i]
+# string ="racar"
+# revstr=""
+# for i in range(len(string)-1,-1,-1):
+#     revstr+=string[i]
     
-if string == revstr:
-    print("str is palindrom",revstr)
-else:
-    print("Stringis not palindrom")
+# if string == revstr:
+#     print("str is palindrom",revstr)
+# else:
+#     print("Stringis not palindrom")
