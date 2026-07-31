@@ -15,11 +15,15 @@ class Bank:
     data=[]
     
     try:
-        if Path(database.exists()):
-           with open(database) as fs:
-               data=json.load(fs.read())
-        else :
+        if Path(database).exists():   # ✅ correct
+            with open(database, "r") as fs:
+                data = json.load(fs)  # ✅ correct
+        else:
             print("no such file exist in db")
+    except Exception as err:
+        print("have some error", err)
+            
+            
             
     except Exception as err:
         print(f"have some error",err)
@@ -41,30 +45,52 @@ class Bank:
         
     
     def createAccount(self):
-        data ={
+        info ={
                 "name":input("enter your name"),
                 "age":int(input("enter your age")),
                 "email":input("enter your email"),  
                 "pin":int(input("enter your pin")),
-                "accountNo.":Bank.__accoundGenrate(),
+                "accountNo":Bank.__accoundGenrate(),
                 "balance":0         
         }
-        if data["age"] < 18 or len(str(data['pin'])) != 4:
+        if info["age"] < 18 or len(str(info['pin'])) != 4:
             print("sorry you can not creat account")
         else:
             print("account created succfully")
-            for i in data:
-                print(f"{i} : {data[i]}")
+            for i in info:
+                print(f"{i} : {info[i]}")
                 
             print("pleace not down your bacnk account")
-            Bank.data.append(data)
+            Bank.data.append(info)
             Bank.update()
             
-        
+    def depositmoney(self):
+        accuntNumber = input("Enter your number: ")
+        pin = int(input("Enter your pin: "))
+        print("bank data ->>",Bank.data)
+
+        userdata = [i for i in Bank.data if i['accountNo'] == accuntNumber and i["pin"] == pin]
+
+        if not userdata:
+            print("Sorry data not found")
+        else:
+            amount = int(input("How much you want to deposit: "))
+            if amount <= 0 or amount > 100000:
+                print("Invalid amount")
+            else:
+                print("userdata",userdata)
+                userdata[0]["balance"] += amount
+                Bank.update()
+                print("Amount deposited successfully")
+                
+                
 user=Bank()
 check=int(input("tell me your number"))
 if check == 1:
     user.createAccount()
+    
+if check ==2:
+    user.depositmoney() 
         
 
 
