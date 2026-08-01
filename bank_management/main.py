@@ -14,6 +14,7 @@ class Bank:
     database='data.json'
     data=[]
     
+    
     try:
         if Path(database).exists():   # ✅ correct
             with open(database, "r") as fs:
